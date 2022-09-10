@@ -7,6 +7,7 @@ import {
   errorHandler,
   notFound,
 } from "./middlewares/errorHandlingMiddleware.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 dotenv.config();
@@ -32,7 +33,7 @@ app.use(
 
 //Error handling middleware
 app.use(errorHandler);
-
+app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 
 app.listen(8800, () => {
