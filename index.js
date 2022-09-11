@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/user.js";
 import {
   errorHandler,
   notFound,
@@ -35,7 +36,7 @@ app.use(
 app.use(errorHandler);
 app.use(cookieParser());
 app.use("/api/auth", authRoutes);
-
+app.use("/api/users", userRoutes);
 app.listen(8800, () => {
   connectDb();
   console.log("server connected in port 8080");

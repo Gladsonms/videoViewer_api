@@ -2,9 +2,13 @@ import express from "express";
 import { sigin, signup } from "../controllers/auth.js";
 const router = express.Router();
 
-//CREATE A USER
+// @desc   user signup
+// @route POST /authsignup
+// @access Public
 router.post("/signup", signup);
-//SIGIN IN
+// @desc   user login
+// @route POST /auth/sigin
+// @access Public
 router.post("/sigin", sigin);
 //GOOGLE AUTH
 
