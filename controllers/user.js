@@ -33,3 +33,13 @@ export const deleteUser = async (req, res, next) => {
     return next(CreateError(403, "Inavlid user please login"));
   }
 };
+
+export const getUser = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findById(id);
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
