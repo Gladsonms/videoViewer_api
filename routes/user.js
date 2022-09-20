@@ -1,5 +1,10 @@
 import express from "express";
-import { deleteUser, getUser, update } from "../controllers/user.js";
+import {
+  deleteUser,
+  getUser,
+  subscribeChannel,
+  update,
+} from "../controllers/user.js";
 import { verifyToken } from "../Utlis/verifyToken.js";
 const router = express.Router();
 
@@ -17,5 +22,10 @@ router.delete("/:id", verifyToken, deleteUser);
 //@route GET  /user/find/:id
 //@access Public
 router.get("/find/:id", getUser);
+
+//@desc subscribe user
+//@route PUT  /user/sub/:id
+//@access private
+router.put("/sub/:id", verifyToken, subscribeChannel);
 
 export default router;
