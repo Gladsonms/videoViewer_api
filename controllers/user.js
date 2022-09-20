@@ -60,8 +60,14 @@ export const subscribeChannel = async (req, res, next) => {
 
 export const unSubscribeChannel = async (req, res, next) => {
   try {
-    await User.findById(req.user.id, {
-      $push,
+    await User.findByIdAndUpdate(req.user.id, {
+      $pull: { subscribedUsers: req.params.id },
     });
-  } catch (error) {}
+    await User.findByIdAndUpdate(req.params.id, {
+      $inc: { subscribers: -1 },
+    });
+    res.status(200).json("Unsubscribed channel");
+  } catch (error) {
+    next(error);
+  }
 };

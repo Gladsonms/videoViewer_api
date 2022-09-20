@@ -3,6 +3,7 @@ import {
   deleteUser,
   getUser,
   subscribeChannel,
+  unSubscribeChannel,
   update,
 } from "../controllers/user.js";
 import { verifyToken } from "../Utlis/verifyToken.js";
@@ -27,5 +28,10 @@ router.get("/find/:id", getUser);
 //@route PUT  /user/sub/:id
 //@access private
 router.put("/sub/:id", verifyToken, subscribeChannel);
+
+//@desc unsubcribe user
+//@route PUT /user/unsub/:id
+//@access  Private
+router.put("/unsub/:id", verifyToken, unSubscribeChannel);
 
 export default router;
