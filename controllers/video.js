@@ -49,3 +49,33 @@ export const deleteVideo = async (req, res, next) => {
     next(error);
   }
 };
+
+//get video
+export const getVideos = async (req, res, next) => {
+  try {
+    const video = await Video.findById(req.params.id);
+    if (video) {
+      res.status(200).json(video);
+    } else {
+      return next(CreateError(404, "Video not found"));
+    }
+  } catch {
+    next(error);
+  }
+};
+
+//add view
+
+export const addView = async (req, res, next) => {
+  try {
+    const video = await Video.findById(req.params.id);
+    if (video) {
+      const UpdatedViewCount = await Video.findByIdAndUpdate(req.params.id, {
+        $inc: { views: 1 },
+      });
+      res.satus(200).json("view add for video");
+    }
+  } catch (error) {
+    next(error);
+  }
+};

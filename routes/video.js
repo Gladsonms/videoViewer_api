@@ -1,5 +1,10 @@
 import express from "express";
-import { AddVideo, deleteVideo, updateVideo } from "../controllers/video";
+import {
+  AddVideo,
+  deleteVideo,
+  getVideos,
+  updateVideo,
+} from "../controllers/video";
 import { verifyToken } from "../Utlis/verifyToken";
 
 const router = express.Router();
@@ -24,7 +29,7 @@ route.delete("/:id", verifyToken, deleteVideo);
 //@desc get video
 //Route get /video/find
 //@acess public
-route.get("/find/:id");
+route.get("/find/:id", getVideos);
 
 //@desc get video
 //Route get /video/view
