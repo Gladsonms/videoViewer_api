@@ -47,10 +47,10 @@ export const getUser = async (req, res, next) => {
 export const subscribeChannel = async (req, res, next) => {
   try {
     await User.findByIdAndUpdate(req.user.id, {
-      $push: { subscribedUsers: req.params.id },
+      $push: { SubscribedUser: req.params.id },
     });
     await User.findByIdAndUpdate(req.params.id, {
-      $inc: { subscribers: 1 },
+      $inc: { Subscribers: 1 },
     });
     res.status(200).json("subdcribtion added ");
   } catch (error) {
@@ -61,10 +61,10 @@ export const subscribeChannel = async (req, res, next) => {
 export const unSubscribeChannel = async (req, res, next) => {
   try {
     await User.findByIdAndUpdate(req.user.id, {
-      $pull: { subscribedUsers: req.params.id },
+      $pull: { SubscribedUser: req.params.id },
     });
     await User.findByIdAndUpdate(req.params.id, {
-      $inc: { subscribers: -1 },
+      $inc: { Subscribers: -1 },
     });
     res.status(200).json("Unsubscribed channel");
   } catch (error) {

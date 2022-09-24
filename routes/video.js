@@ -1,11 +1,15 @@
 import express from "express";
 import {
   AddVideo,
+  addView,
   deleteVideo,
   getVideos,
+  randomVideos,
+  sub,
+  trend,
   updateVideo,
-} from "../controllers/video";
-import { verifyToken } from "../Utlis/verifyToken";
+} from "../controllers/video.js";
+import { verifyToken } from "../Utlis/verifyToken.js";
 
 const router = express.Router();
 
@@ -24,31 +28,31 @@ router.put("/:id", verifyToken, updateVideo);
 //@desc delete video
 //Route delete /video
 //@acess private
-route.delete("/:id", verifyToken, deleteVideo);
+router.delete("/:id", verifyToken, deleteVideo);
 
 //@desc get video
 //Route get /video/find
 //@acess public
-route.get("/find/:id", getVideos);
+router.get("/find/:id", getVideos);
 
-//@desc get video
-//Route get /video/view
+//@desc put video count
+//Route put /video/view
 //@acess public
-route.get("/view/:id");
+router.put("/view/:id", addView);
 
 //@desc get video
 //Route get /video/random
 //@acess public
-route.get("/random");
+router.get("/random", randomVideos);
 
 //@desc get video
 //Route get /video/trend
 //@acess public
-route.get("/trend");
+router.get("/trend", trend);
 
 //@desc get video
 //Route get /video/sub
 //@acess public
-route.get("/sub");
+router.get("/sub", verifyToken, sub);
 
 export default router;
