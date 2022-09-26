@@ -3,8 +3,10 @@ import {
   AddVideo,
   addView,
   deleteVideo,
+  getByTags,
   getVideos,
   randomVideos,
+  search,
   sub,
   trend,
   updateVideo,
@@ -53,6 +55,16 @@ router.get("/trend", trend);
 //@desc get video
 //Route get /video/sub
 //@acess public
-router.get("/sub", verifyToken, sub);
+router.get("/sub", sub);
+
+//@desc get video by tags
+//Route get /video/tags
+//@acess public
+router.get("/tag", getByTags);
+
+//@desc get video by search
+//Route get /video/search
+//@acess public
+router.get("/search", search);
 
 export default router;

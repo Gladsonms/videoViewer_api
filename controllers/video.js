@@ -103,12 +103,44 @@ export const sub = async (req, res, next) => {
   try {
     const uservideo = await User.findById(req.user.id);
     const subscribedChannels = uservideo.SubscribedUser;
-    const list = Promise.all(
+    const list = await Promise.all(
       subscribedChannels.map((channelId) => {
         return Video.find({ userId: channelId });
       })
     );
-    res.status(200).json(list);
+    res
+      .status(200)
+      .json(list.flat().sort((a, (b) => b.createdAt - a.createdAt)));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getByTags = async (req, res, next) => {
+  const tags = req.query.tags.split(",");
+  try {
+    const videos = await Video.find({ tags: { $in: tags } }).limit(20);
+    if (videos) {
+      res.status(200).json(videos);
+    } else {
+      res.status(200).json("no videos ");
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const search = async (req, res, next) => {
+  const query = req.query.q;
+  try {
+    const videos = await Video.find({
+      title: { $regex: query, $option: "i" },
+    }).limit(20);
+    if (videos) {
+      res.status(200).json(videos);
+    } else {
+      res.status(200).json("no videos ");
+    }
   } catch (error) {
     next(error);
   }
