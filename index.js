@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js";
 import videoRoutes from "./routes/video.js";
+import commentRoutes from "./routes/comment.js";
 import {
   errorHandler,
   notFound,
@@ -39,6 +40,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/video", videoRoutes);
+app.use("/api/comment", commentRoutes);
 app.listen(8800, () => {
   connectDb();
   console.log("server connected in port 8080");
