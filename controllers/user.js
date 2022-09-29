@@ -1,5 +1,6 @@
 import { CreateError } from "../middlewares/errorHandlingMiddleware.js";
 import User from "../modals/User.js";
+import Video from "../modals/Video.js";
 
 //upadate user
 export const update = async (req, res, next) => {
@@ -70,4 +71,31 @@ export const unSubscribeChannel = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+//like video
+export const like = async (req, res, next) => {
+  const id = req.user.id;
+  const videoId = req.user.videoId;
+  try {
+    await Video.findByIdAndUpdate(videoId, {
+      $addToSet: { likes: id },
+      $pull: { dislikes: id },
+    });
+    res.status(200).json("The video like has been added");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const dislike = async (req, res, next) => {
+  const id = req.user.id;
+  const videoId = req.user.videoId;
+  try {
+    await Video.findByIdAndUpdate(videoId, {
+      $addToSet: { dislikes: id },
+      $pull: { likes: id },
+    });
+    res.status(200).json("The vidoe has been disliked");
+  } catch (error) {}
 };

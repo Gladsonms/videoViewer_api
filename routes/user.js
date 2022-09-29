@@ -34,4 +34,13 @@ router.put("/sub/:id", verifyToken, subscribeChannel);
 //@access  Private
 router.put("/unsub/:id", verifyToken, unSubscribeChannel);
 
+//@desc like  video
+//@route PUT /user/like/:id
+//@access  Private
+router.put("/like/:videoId", verifyToken, unSubscribeChannel);
+
+//@desc dislike  video
+//@route PUT /user/dilike/:id
+//@access  Private
+router.put("/dislike/:videoId", verifyToken, unSubscribeChannel);
 export default router;
